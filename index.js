@@ -333,16 +333,38 @@ const Product = mongoose.model("Product", {
   available: { type: Boolean, default: true },
 });
 
+// // Add Product Endpoint
+// app.post('/addproduct', async (req, res) => {
+//   try {
+//     const products = await Product.find({});
+//     const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
+
+//     const product = new Product({
+//       id,
+//       name: req.body.name,
+//       image: req.body.image,
+//       category: req.body.category,
+//       new_price: req.body.new_price,
+//       old_price: req.body.old_price,
+//     });
+
+//     await product.save();
+//     res.json({ success: true, name: req.body.name });
+//   } catch (error) {
+//     res.status(500).json({ success: false, error: error.message });
+//   }
+// });
 // Add Product Endpoint
 app.post('/addproduct', async (req, res) => {
   try {
     const products = await Product.find({});
     const id = products.length > 0 ? products[products.length - 1].id + 1 : 1;
 
+    // Save the full URL of the image
     const product = new Product({
       id,
       name: req.body.name,
-      image: req.body.image,
+      image: `https://backend-kohl-xi-73.vercel.app/images/${req.body.image}`,
       category: req.body.category,
       new_price: req.body.new_price,
       old_price: req.body.old_price,
